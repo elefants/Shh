@@ -13,6 +13,12 @@ using Shh.WebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using System.Reflection;
+using MediatR;
+using Shh.Services.Noise.Infrastructure.AutofacModules;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace Shh.WebApp
 {
@@ -26,7 +32,7 @@ namespace Shh.WebApp
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -35,9 +41,12 @@ namespace Shh.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAutoMapper();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -53,6 +62,17 @@ namespace Shh.WebApp
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services
+                .AddMediatR(new List<Assembly>
+                {
+                    typeof(NoiseModule).GetTypeInfo().Assembly,
+                });
+
+            var container = new ContainerBuilder();
+            container.Populate(services);
+            container.RegisterModule(new NoiseModule());
+            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
