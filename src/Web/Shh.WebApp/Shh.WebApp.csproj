@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\Shh.Extensions.DependencyInjection\Shh.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\..\Services\Shh.Services.Noise\Shh.Services.Noise.csproj" />
   </ItemGroup>
 

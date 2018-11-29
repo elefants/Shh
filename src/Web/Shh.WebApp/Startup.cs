@@ -19,6 +19,8 @@ using MediatR;
 using Shh.Services.Noise.Infrastructure.AutofacModules;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Shh.Extensions.DependencyInjection.NoSql;
+using Shh.Services.Noise.Infrastructure.Database;
 
 namespace Shh.WebApp
 {
@@ -40,6 +42,9 @@ namespace Shh.WebApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddNoSqlCollection<NoiseSamplesCollection>(options => 
+                options.Value = Configuration.GetSection("Collections").GetValue<CollectionOptions>("Noise"));
 
             services.AddAutoMapper();
 
