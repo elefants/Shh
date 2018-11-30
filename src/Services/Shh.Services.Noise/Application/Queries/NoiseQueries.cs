@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shh.Services.Noise.Application.Queries
 {
-    internal class NoiseQueries
+    internal class NoiseQueries : INoiseQueries
     {
     }
 }

@@ -43,9 +43,8 @@ namespace Shh.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddNoSqlCollection<NoiseSamplesCollection>(options => 
-                options.Value = Configuration.GetSection("Collections").GetValue<CollectionOptions>("Noise"));
-
+            services.AddNoSqlCollection<NoiseSamplesCollection>(Configuration.GetSection("Collections:Noise"));
+            
             services.AddAutoMapper();
 
             services.AddDbContext<ApplicationDbContext>(options =>
