@@ -10,16 +10,16 @@ namespace Shh.Services.Noise.Application.Queries
 {
     internal class NoiseQueries : INoiseQueries
     {
-        private readonly NoiseSamplesCollection _samplesCollection;
+        private readonly NoiseDatabase _samplesCollection;
 
-        public NoiseQueries(NoiseSamplesCollection samplesCollection)
+        public NoiseQueries(NoiseDatabase samplesCollection)
         {
             _samplesCollection = _samplesCollection ?? throw new ArgumentNullException(nameof(samplesCollection));
         }
 
         public IEnumerable<NoiseSample> GetSamples(string deviceId, DateTime? from, DateTime? to)
         {
-            var samples = _samplesCollection.Collection
+            var samples = _samplesCollection.SamplesCollection
                 .AsQueryable()
                 .Where(x => x.DeviceId == deviceId);
 

@@ -9,21 +9,21 @@ namespace Shh.Services.Noise.Infrastructure.Repositories
 {
     internal class NoiseRepository : INoiseRepository
     {
-        private readonly NoiseSamplesCollection _samplesCollection;
+        private readonly NoiseDatabase _samplesCollection;
 
-        public NoiseRepository(NoiseSamplesCollection samplesCollection)
+        public NoiseRepository(NoiseDatabase samplesCollection)
         {
             _samplesCollection = _samplesCollection ?? throw new ArgumentNullException(nameof(samplesCollection));
         }
 
         public async Task AddSample(NoiseSample sample)
         {
-            await _samplesCollection.Collection.InsertOneAsync(sample);
+            await _samplesCollection.SamplesCollection.InsertOneAsync(sample);
         }
 
         public async Task AddSamples(IEnumerable<NoiseSample> samples)
         {
-            await _samplesCollection.Collection.InsertManyAsync(samples);
+            await _samplesCollection.SamplesCollection.InsertManyAsync(samples);
         }
     }
 }

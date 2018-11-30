@@ -7,17 +7,17 @@ using System.Text;
 
 namespace Shh.Services.Noise.Infrastructure.Database
 {
-    public class NoiseSamplesCollection
+    public class NoiseDatabase
     {
         private readonly IMongoDatabase _database = null;
 
-        public NoiseSamplesCollection(NoSqlCollectionOptions<NoiseSamplesCollection> settings)
+        public NoiseDatabase(NoSqlCollectionOptions<NoiseDatabase> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
             if (client != null)
                 _database = client.GetDatabase(settings.Value.Database);
         }
 
-        public IMongoCollection<NoiseSample> Collection => _database.GetCollection<NoiseSample>("noise-samples");
+        public IMongoCollection<NoiseSample> SamplesCollection => _database.GetCollection<NoiseSample>("noise-samples");
     }
 }
