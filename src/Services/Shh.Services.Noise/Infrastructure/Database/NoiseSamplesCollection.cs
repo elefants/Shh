@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using Shh.Extensions.DependencyInjection.NoSql;
+using Shh.Services.Noise.Domain.AggregateModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,7 @@ namespace Shh.Services.Noise.Infrastructure.Database
             if (client != null)
                 _database = client.GetDatabase(settings.Value.Database);
         }
+
+        public IMongoCollection<NoiseSample> Collection => _database.GetCollection<NoiseSample>("noise-samples");
     }
 }
