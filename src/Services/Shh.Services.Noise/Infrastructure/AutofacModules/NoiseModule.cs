@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Shh.Services.Noise.Application.Queries;
 using Shh.Services.Noise.Domain.AggregateModels;
+using Shh.Services.Noise.Infrastructure.Database;
 using Shh.Services.Noise.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace Shh.Services.Noise.Infrastructure.AutofacModules
 
         private void RegisterDatabase(ContainerBuilder builder)
         {
+            builder.RegisterType<NoiseDatabase>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<NoiseRepository>()
                 .As<INoiseRepository>()
                 .InstancePerLifetimeScope();

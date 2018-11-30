@@ -107,7 +107,7 @@ namespace Shh.WebApp
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
+            
             app.UseMvc();
 
             app.UseNoiseService();

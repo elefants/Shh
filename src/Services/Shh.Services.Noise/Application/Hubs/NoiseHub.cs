@@ -7,5 +7,6 @@ namespace Shh.Services.Noise.Application.Hubs
 {
     public class NoiseHub : Hub
     {
+
     }
 }
