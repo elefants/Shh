@@ -43,11 +43,14 @@ namespace Shh.WebApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
+
             services.AddNoSqlCollection<NoiseDatabase>(Configuration.GetSection("Collections:Noise"));
-            
+
             services.AddAutoMapper();
-            services.AddSignalR();
+            services.AddSignalR(s => 
+            {
+                s.EnableDetailedErrors = true;
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -61,6 +64,18 @@ namespace Shh.WebApp
                 c.DescribeAllEnumsAsStrings();
                 c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "SpazApp", Version = "v1" });
             });
+
+            services.AddCors(
+                options => options.AddPolicy("AllowAnyOrigin",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowCredentials()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    })
+            );
 
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -107,7 +122,8 @@ namespace Shh.WebApp
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            
+
+            app.UseCors("AllowAnyOrigin");
             app.UseMvc();
 
             app.UseNoiseService();

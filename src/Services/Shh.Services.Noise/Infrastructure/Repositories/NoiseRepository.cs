@@ -13,7 +13,7 @@ namespace Shh.Services.Noise.Infrastructure.Repositories
 
         public NoiseRepository(NoiseDatabase samplesCollection)
         {
-            _samplesCollection = _samplesCollection ?? throw new ArgumentNullException(nameof(samplesCollection));
+            _samplesCollection = samplesCollection ?? throw new ArgumentNullException(nameof(samplesCollection));
         }
 
         public async Task AddSample(NoiseSample sample)

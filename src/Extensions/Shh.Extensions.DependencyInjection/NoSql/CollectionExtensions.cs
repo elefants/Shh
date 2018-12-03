@@ -9,6 +9,7 @@ namespace Shh.Extensions.DependencyInjection.NoSql
     public static class CollectionExtensions
     {
         public static IServiceCollection AddNoSqlCollection<T>(this IServiceCollection services, IConfigurationSection config)
+            where T : class
         {
             var options = new CollectionOptions();
             config.Bind(options);
@@ -18,7 +19,9 @@ namespace Shh.Extensions.DependencyInjection.NoSql
                 Value = options
             };
 
-            return services.AddNoSqlCollection(c);
+            return services
+                .AddNoSqlCollection(c)
+                .AddTransient<T>();
         }
 
         public static IServiceCollection AddNoSqlCollection<T>(this IServiceCollection services, Action<NoSqlCollectionOptions<T>> setup)

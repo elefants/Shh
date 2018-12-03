@@ -19,8 +19,8 @@ namespace Shh.Services.Noise.Infrastructure.AutofacModules
 
         private void RegisterDatabase(ContainerBuilder builder)
         {
-            builder.RegisterType<NoiseDatabase>()
-                .InstancePerLifetimeScope();
+            //builder.RegisterType<NoiseDatabase>()
+            //    .InstancePerLifetimeScope();
 
             builder.RegisterType<NoiseProcessor>()
                 .InstancePerLifetimeScope();

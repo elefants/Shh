@@ -15,7 +15,7 @@ namespace Shh.Services.Noise.Application.Queries
 
         public NoiseQueries(NoiseDatabase samplesCollection)
         {
-            _samplesCollection = _samplesCollection ?? throw new ArgumentNullException(nameof(samplesCollection));
+            _samplesCollection = samplesCollection ?? throw new ArgumentNullException(nameof(samplesCollection));
         }
 
         public IEnumerable<NoiseSample> GetSamples(string deviceId, DateTime? from, DateTime? to)
