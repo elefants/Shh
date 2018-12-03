@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using Shh.Services.Noise.Application.Models;
 using Shh.Services.Noise.Domain.AggregateModels;
 using Shh.Services.Noise.Infrastructure.Database;
 using System;

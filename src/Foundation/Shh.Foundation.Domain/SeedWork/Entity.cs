@@ -14,7 +14,7 @@ namespace Shh.Foundation.Domain.SeedWork
             {
                 return _id;
             }
-            protected set
+            set
             {
                 _id = value;
             }

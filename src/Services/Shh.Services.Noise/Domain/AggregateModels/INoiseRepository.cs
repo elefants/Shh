@@ -7,6 +7,7 @@ namespace Shh.Services.Noise.Domain.AggregateModels
 {
     public interface INoiseRepository
     {
+        Task AddSample(NoiseSample sample);
         Task AddSamples(IEnumerable<NoiseSample> samples);
     }
 }
